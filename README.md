@@ -8,7 +8,7 @@ Great for testing simple deployments to the cloud
 
 `npm pack`
 
-## Run It
+### Run It
 
 `npm start`
 
