@@ -1,29 +1,31 @@
 pipeline {
-  agent any
-    
-  tools {nodejs "node"}
-    
-  stages {
-        
-    stage('Git') {
-      steps {
-        git 'https://github.com/akashkr17/node-hello'
-      }
+    agent {
+        docker {
+            image 'node:6-alpine'
+            args '-p 3000:3000'
+        }
     }
-     
-    stage('Build') {
-      steps {
-        sh 'npm install'
-         sh 'npm pack'
-         sh 'npm start'
-      }
-    }  
-    
-            
-    stage('Test') {
-      steps {
-        sh 'node test'
-      }
+     environment {
+            CI = 'true'
+        }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test') {
+                    steps {
+                        sh 'npm test'
+                    }
+                }
+                stage('Deliver') {
+                            steps {
+                                sh 'npm run build'
+                                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                                sh 'kill $(cat .pidfile)'
+                            }
+                        }
+
     }
-  }
 }
