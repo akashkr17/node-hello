@@ -4,6 +4,9 @@ pipeline {
         stage('build') {
             steps {
                 sh 'node --version'
+                sh 'echo "App is running"'
+                sh 'npm pack'
+                sh 'npm start'
             }
         }
     }
