@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
 //demo
 const server2 = http.createServer((req, res) => {
 	res.statusCode = 200;
-	const msg2 = 'Hello again from Node!\n'
+	const msg2 = 'Hello from Node!\n'
 	res.end(msg2);
 });
 
